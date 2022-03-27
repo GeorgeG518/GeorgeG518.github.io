@@ -3,7 +3,9 @@
 <style type="text/css">
     canvas { background: blue; }
 </style>
-
+<head>
+  <link rel="stylesheet" href="/styles.css" />
+</Head>
 
 <script id="vertex-shader" type="x-shader/x-vertex">
 
@@ -16,13 +18,13 @@ varying vec2 fTexCoord;
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 
-void main() 
+void main()
 {
-                
+
     fColor = vColor;
     fTexCoord = vTexCoord;
     gl_Position = projectionMatrix*modelViewMatrix*vPosition;
-} 
+}
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
