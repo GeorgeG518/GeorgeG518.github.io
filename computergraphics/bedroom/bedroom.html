@@ -20,10 +20,10 @@ uniform mat4 projectionMatrix;
 
 uniform vec4 lightPosition;
 uniform float shininess;
-void main() 
+void main()
 {
 	vec3 pos = -(modelViewMatrix * vPosition).xyz;
-    vec3 light = -(modelViewMatrix * lightPosition).xyz;               
+    vec3 light = -(modelViewMatrix * lightPosition).xyz;
     vec3 L = normalize( light - pos );
 
     vec3 E = normalize( -pos );
@@ -40,16 +40,16 @@ void main()
 
     float Ks = pow( max(dot(N, H), 0.0), shininess );
     vec4  specular = Ks * specularProduct;
-    
+
     if( dot(L, N) < 0.0 )  specular = vec4(0.0, 0.0, 0.0, 1.0);
-	
+
 	fColor =ambient + diffuse + specular;
 
     gl_Position = projectionMatrix*modelViewMatrix*vPosition;
-	fColor.a = 1.0;	
-    fTexCoord = vTexCoord;	
-	
-} 
+	fColor.a = 1.0;
+    fTexCoord = vTexCoord;
+
+}
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
@@ -72,24 +72,44 @@ void main()
 <script type="text/javascript" src="bedroom.js"></script>
 
 <body>
-<canvas id="gl-canvas" width="512" height="512">
-Oops ... your browser doesn't support the HTML5 canvas element
-</canvas>
-<div>
-<button id="phiPlus">phi ++</button>
-<button id="phiMinus">phi --</button>
-<button id="thetaPlus">theta ++</button>
-<button id="thetaMinus">theta --</button>
+<div style="float:left;">
+  <div>
+    <canvas id="gl-canvas" width="512" height="512">
+    Oops ... your browser doesn't support the HTML5 canvas element
+    </canvas>
+  </div>
+  <div>
+    <div>
+    <button id="phiPlus">phi ++</button>
+    <button id="phiMinus">phi --</button>
+    <button id="thetaPlus">theta ++</button>
+    <button id="thetaMinus">theta --</button>
+    </div>
+
+    <div>
+    <button id="left">left</button>
+    <button id="right">right</button>
+    <button id="up">up</button>
+    <button id="down">down</button>
+    </div>
+
+    <div>
+    <button id="zoomIn">zoom In</button>
+    <button id="zoomOut">zoom Out</button>
+    </div>
+  </div>
 </div>
+
 <div>
-<button id="left">left</button>
-<button id="right">right</button>
-<button id="up">up</button>
-<button id="down">down</button>
-</div>
-<div>
-<button id="zoomIn">zoom In</button>
-<button id="zoomOut">zoom Out</button>
+  I coded this project in CSCI 4250 at MTSU in the Fall of 2021. It was originally going to be my bedroom,
+  but ended up being an entirely fictional location. I had to code in individual vertex definitions, and also the shader properties.
+
+  It is animated, and you can see this is you press a on the keyboard. The fans will turn, and the monitor will display texures and play music.
+
+  The coolest part of the project in my opinion is the clock on the wall. It will fetch the system time and display it live.
+
+  The code for that is pretty interesting as I had to do a special rotation matrix for the vertices of the clock hands depending on which
+  hand was being animated i.e. the minutes turn faster than hours, seconds turn faster than both of them.
 </div>
 </body>
 </html>
